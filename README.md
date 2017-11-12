@@ -22,6 +22,7 @@ docker exec -it bind bash
 ```
 docker kill $(docker ps -a -q); docker rm $(docker ps -a -q); 
 rm -rf oracle/*
+docker volumne prune 
 ```  
 
 #### Connect db with sqlplus  
@@ -33,5 +34,5 @@ sqlplus system/oracle
 
 ```
 sqlplus system/oracle @reset_database.sql
-impdp -parfile imp_all.txt 
+impdp -parfile imp_all.txt ignore=y
 ```
