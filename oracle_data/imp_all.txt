@@ -1,0 +1,4 @@
+USERID=system/oracle
+DIRECTORY=import_dir
+dumpfile=BindingDB_All_Oracle.dmp
+logfile=bind_imp.log
