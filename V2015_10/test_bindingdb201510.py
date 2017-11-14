@@ -15,7 +15,7 @@ import pickle
 from downloader import download
 
 
-scratch_dir = join(os.getcwd(), '/scratch')
+scratch_dir = join(os.getcwd(), 'scratch')
 
 datasets_url = 'http://192.168.0.97/share/StandigmDB/datasets'
 
