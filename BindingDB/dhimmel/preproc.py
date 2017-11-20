@@ -12,12 +12,13 @@ import pandas
 import requests
 import pickle
 
-from downloader import download
+# set_trace()
 
+# from downloader import download
+from hetio import datasets_url, scratch_dir
 
-scratch_dir = join(os.getcwd(), 'scratch')
+from hetio.downloader import download_v2
 
-datasets_url = 'http://192.168.0.97/share/StandigmDB/datasets'
 
 url_dataset_GeneID = join(datasets_url, 
     'binding_db/GeneID.tsv.gz'
@@ -43,6 +44,10 @@ target_fields = [
     ]
 
 chains_key = 'Number of Protein Chains in Target (>1 implies a multichain complex)'
+
+#
+# output files: 
+#
 
 chk_bindingdb_step1_pkl = join(scratch_dir, 
     'chk-bindingdb-step1.pkl'
@@ -99,7 +104,7 @@ def step1(force=False):
             uniprot_to_entrez = pickle.load(f)
 
     else: 
-        local_filename = download(remote_path=url_dataset_GeneID, 
+        local_filename = download_v2(remote_path=url_dataset_GeneID, 
             download_dir=scratch_dir, force=True
             )
         uniprot_df = pandas.read_table(local_filename, 
@@ -118,7 +123,7 @@ def step1(force=False):
 
 def step2():
 
-    local_filename = download(remote_path=url_dataset_BindingDBAll,
+    local_filename = download_v2(remote_path=url_dataset_BindingDBAll,
         download_dir=scratch_dir)
 
     return local_filename    
@@ -255,7 +260,7 @@ def step3(mapdata=None, bindingdbpath=None):
     # ) 
 
 
-def test_run():
+def load():
 
     uniprot_to_entrez = step1()
     
@@ -265,10 +270,11 @@ def test_run():
         step3(mapdata=uniprot_to_entrez, 
             bindingdbpath=local_bindingdb_path)
 
-    assert True 
+    # assert True 
+
+    return pd.read_table(out_bindingdb_dataset)
 
 
-
-
-
+def test_load():
+    dataset = load() 
 
